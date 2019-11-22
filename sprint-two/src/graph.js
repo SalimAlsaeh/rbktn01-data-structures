@@ -8,8 +8,7 @@ var Graph = function(value) {
 
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
-	var newNode = new GraphNode(node);
-	this.nodes[node] = newNode;
+	this.nodes[node] = new GraphNode(node);
 	console.log(this.nodes)
 };
 
@@ -19,9 +18,8 @@ Graph.prototype.contains = function(node) {
 	Object.keys(this.nodes).forEach(function (element) {
 		if(parseInt(element) === node) {
 			flag = true;
-			return;
 		}
-	})
+	});
 	return flag;
 };
 
@@ -32,7 +30,7 @@ Graph.prototype.removeNode = function(node) {
 		delete this.nodes[node];
 		return removed;
 	}
-	return;
+
 
 };
 
@@ -47,7 +45,7 @@ Graph.prototype.hasEdge = function(fromNode, toNode) {
 		}
 		return flag;
 	}
-	return;
+
 };
 
 // Connects two nodes in a graph by adding an edge between them.
@@ -56,12 +54,15 @@ Graph.prototype.addEdge = function(fromNode, toNode) {
 		var edge = new Edge(this.nodes[fromNode], this.nodes[toNode]);
 		this.nodes[fromNode].connectedNodes[toNode] = this.nodes[toNode];
 		this.edges.push(edge);
-		console.log(this)
 	}
 };
 
 // Remove an edge between any two specified (by value) nodes.
 Graph.prototype.removeEdge = function(fromNode, toNode) {
+	if (this.hasEdge(fromNode, toNode)){
+		delete this.nodes[fromNode].connectedNodes[toNode];
+		// delete from edges array
+	}
 };
 
 // Pass in a callback which will be executed on each node of the graph.

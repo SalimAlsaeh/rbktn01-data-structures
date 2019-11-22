@@ -4,7 +4,7 @@ var Tree = function(value) {
 
   // your code here
   newTree.children = [];  // fix me
-  _.extend(newTree, treeMethods)
+  _.extend(newTree, treeMethods);
 
   return newTree;
 };
@@ -29,7 +29,7 @@ treeMethods.contains = function(target) {
 			findElement(child);
       	 });
       } 
-    }
+    };
     findElement(this);
     return flag;
 };
