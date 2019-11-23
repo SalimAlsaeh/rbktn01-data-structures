@@ -48,7 +48,7 @@ HashTable.prototype.retrieve = function(k) {
         return bucket[0][1];
       }
   } else {
-    return null;
+    return undefined;
   }
 
   bucket.forEach(function(element){
@@ -66,17 +66,17 @@ HashTable.prototype.remove = function(k) {
     if(hashTable._storage.get(index).length === 1) {
       hashTable._storage.get(index).splice(0,1);
       this._count--;
-      // if (this._count < this._limit * 0.25) {
-      //   this.resize(this._limit / 2);
-      // }
+      if (this._count < this._limit * 0.25) {
+        this.resize(this._limit / 2);
+      }
     }else {
       hashTable._storage.get(index).forEach(function(element, index) {
         if(element[0] === k) {
           hashTable._storage.get(index).splice(index,1);
             this._count--;
-            // if (this._count < this._limit * 0.25) {
-            //   this.resize(this._limit / 2);
-            // }
+            if (this._count < this._limit * 0.25) {
+              this.resize(this._limit / 2);
+            }
         }
       })
     } 
@@ -93,13 +93,17 @@ HashTable.prototype.resize = function(newLimit) {
 
   var context = this;
   oldData.each(function(bucket) {
-    console.log(bucket)
+    console.log('bucket');
+    console.log(bucket);
+    if (!bucket){
+      return;
+    }
     for (var i = 0; i < bucket.length; i++) {
       context.insert(bucket[i][0], bucket[i][1]);
     }
   });
 
-}
+};
 
 
 
